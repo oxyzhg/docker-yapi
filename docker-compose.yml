@@ -2,7 +2,7 @@ version: "2"
 services:
   mongo:
     image: mongo:3
-    container_name: yapi-mongo
+    container_name: mongo
     privileged: true
     restart: always
     networks:
@@ -12,20 +12,20 @@ services:
       - MONGO_INITDB_ROOT_PASSWORD=yapi
       - MONGO_INITDB_DATABASE=yapi
     volumes:
-      - ./mongo-data:/data/db
+      - ./data/db:/data/db
   yapi:
     image: yapi
-    container_name: yapi-web
+    container_name: yapi
     privileged: true
     restart: always
     depends_on:
       - mongo
     ports:
-      - "8001:3000"
+      - "8010:3000"
     networks:
       - yapi
     volumes:
       - ./config.json:/app/config.json
-      - ./yapi-runtime:/app/runtime
+      - ./runtime:/app/runtime
 networks:
   yapi:
